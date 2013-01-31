@@ -1,6 +1,7 @@
 from collada.triangleset import BoundTriangleSet
 
-__author__ = 'benjamin.loesch'
+__author__ = 'benjamin.loesch' #edited by KaiVolland
+
 
 import collada
 import sys
@@ -47,15 +48,13 @@ def convertCollada(colladafilepath,center,destdir):
 
         col = collada.Collada(colladafilepath,\
             ignore=[collada.DaeUnsupportedError, collada.DaeBrokenRefError])
-
+        
         upaxis = col.assetInfo.upaxis;
         scale = col.assetInfo.unitmeter;
         if scale is None:
             scale=1
         else:
             scale=float(scale)
-
-
 
         file = open(destdir+"/"+tmpJsonFilename,'w')
         file.write('\t[[')
@@ -85,7 +84,7 @@ def convertCollada(colladafilepath,center,destdir):
 
                 if (isinstance(value, collada.material.Map)):
                     colladaimage = value.sampler.surface.image
-                    jsonobject["DiffuseMap"] = colladaimage.path.split('/')[-1]
+                    jsonobject["DiffuseMap"] = 'models/'+name[:-4]+'/'+colladaimage.path.split('/')[-1] #edited so the savepath fits my serverstructure
                     jsonobject['VertexSemantic'] = 'pt'
 
                 #-------------------------------------------------------------------------------------------------------
@@ -155,7 +154,7 @@ def convertCollada(colladafilepath,center,destdir):
 
                     trinr = trinr+1
 
-
+               # write_to_json(']',file)
                 write_to_json(jsonobject,file)
                 file.write(',')
 
@@ -168,15 +167,3 @@ def convertCollada(colladafilepath,center,destdir):
 
     except:
         return "{'error': Error: Unable to read collada file.}"
-
-
-
-
-
-
-
-
-
-
-
-

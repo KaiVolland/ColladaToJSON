@@ -47,12 +47,13 @@ if __name__ == '__main__':
         print "Usage: ColladaToJson.py -i <inputfile.dae> -c lng,lat,elv\nExample: ColladaToJson -i mymodel.dae -c 7.1234,45.243,1200"
         sys.exit(2)
 
-    try:
-        dir = 'ConvertedModel_'+str(time.time())
-        dir = dir[:-3]
+    try: #edited so the json will be written to the texture-folder
+        #dir = 'ConvertedModel_'+str(time.time())
+        dir = inputfile
+        dir = dir[:-4]
         diroriginal = dir+'/temp'
         dirnew = dir+'/out'
-        os.mkdir(dir, 0777)
+        #os.mkdir(dir, 0777)
         os.mkdir(diroriginal, 0777)
         os.mkdir(dirnew, 0777)
 
